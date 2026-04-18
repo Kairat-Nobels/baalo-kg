@@ -1,0 +1,135 @@
+.window {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.72);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 16px;
+}
+
+.form {
+    width: 100%;
+    max-width: 420px;
+    background-color: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 22px;
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+    position: relative;
+    color: #ffffff;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.form h2 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.formGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formGroup label {
+    color: #d0d0d0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formGroup input {
+    width: 100%;
+    background: #0b0b0b;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.formGroup input::placeholder {
+    color: #8d8d8d;
+}
+
+.formGroup input:focus {
+    border-color: #00ff88;
+    background: #101010;
+}
+
+.closeX {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closeX:hover {
+    color: #00ff88;
+    border-color: #00ff88;
+}
+
+.form button {
+    border: none;
+    padding: 14px 24px;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    font-weight: 800;
+    transition: 0.3s;
+    border-radius: 10px;
+    background: #00ff88;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.form button:hover {
+    background: #00d873;
+    transform: translateY(-2px);
+}
+
+.form h3 {
+    color: red;
+}
+
+@media (max-width: 430px) {
+    .form {
+        padding: 24px 16px;
+        border-radius: 18px;
+    }
+
+    .form h2 {
+        font-size: 22px;
+        padding-right: 24px;
+    }
+
+    .closeX {
+        top: 10px;
+        right: 10px;
+    }
+}

@@ -1,0 +1,153 @@
+.window {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 520px;
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 22px;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    position: relative;
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.formGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formGroup label {
+    color: #d0d0d0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    background: #0b0b0b;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    border-color: #00ff88;
+    background: #101010;
+}
+
+.card button {
+    border: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    font-weight: 800;
+    transition: 0.3s;
+    border-radius: 10px;
+    background: #00ff88;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.card button:hover {
+    background: #00d873;
+    transform: translateY(-2px);
+}
+
+.card button:disabled {
+    cursor: not-allowed;
+    background: silver;
+}
+
+.card .closeBtn,
+.closeX {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0;
+}
+
+.loading {
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+.message {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 140px;
+    position: relative;
+    padding-top: 20px;
+}
+
+@media (max-width: 430px) {
+    .window {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 24px 16px;
+        border-radius: 18px;
+    }
+
+    .card h2 {
+        font-size: 22px;
+        padding-right: 24px;
+    }
+
+    .closeX,
+    .card .closeBtn {
+        top: 10px;
+        right: 10px;
+    }
+}

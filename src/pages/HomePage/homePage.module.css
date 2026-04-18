@@ -1,0 +1,343 @@
+.heroBanner {
+    width: 100%;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.78)),
+        url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.heroContent {
+    max-width: 900px;
+    text-align: center;
+    color: #fff;
+}
+
+.heroContent h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.heroContent p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #d7d7d7;
+    margin-bottom: 36px;
+}
+
+.heroBtn {
+    display: inline-block;
+    padding: 18px 34px;
+    border-radius: 10px;
+    background: #00ff88;
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.heroBtn:hover {
+    transform: translateY(-2px);
+    background: #00d873;
+    color: #000;
+}
+
+.advantages {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 20px;
+}
+
+.advantagesTitle {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 36px;
+}
+
+.advList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.advItem {
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 18px;
+    padding: 28px 22px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.advItem:hover {
+    transform: translateY(-4px);
+    border-color: #00ff88;
+}
+
+.advIcon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.advItem h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.advItem p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #b8b8b8;
+}
+
+.aboutSection {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 24px;
+}
+
+.aboutImg {
+    width: 42%;
+}
+
+.aboutImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.aboutText {
+    width: 58%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.aboutText h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.aboutText p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #c3c3c3;
+}
+
+.aboutListBlock {
+    margin-top: 8px;
+}
+
+.aboutListTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00ff88;
+    margin-bottom: 10px;
+}
+
+.aboutList {
+    padding-left: 18px;
+    color: #d0d0d0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.servicesSection {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 20px;
+}
+
+.servicesSection h2 {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 32px;
+}
+
+.reviewsSection {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 20px;
+}
+
+.reviewsSection h2 {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 32px;
+}
+
+.noReviews {
+    text-align: center;
+    color: #9f9f9f;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.contactsSection {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 20px 60px;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.contactsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contactsInfo {
+    background: #111111;
+    border: 1px solid #1f1f1f;
+    border-radius: 20px;
+    padding: 28px 24px;
+}
+
+.contactsInfo h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.contactsInfo p,
+.contactsInfo a {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #bdbdbd;
+    text-decoration: none;
+}
+
+.contactsInfo a:hover {
+    color: #00ff88;
+}
+
+.contactsContent button {
+    border: none;
+    border-radius: 10px;
+    padding: 16px 24px;
+    background: #00ff88;
+    color: #000;
+    font-size: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.contactsContent button:hover {
+    background: #00d873;
+    transform: translateY(-2px);
+}
+
+.contactsMap {
+    min-height: 100%;
+}
+
+.contactsMap iframe {
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 20px;
+    filter: grayscale(0.15) contrast(1.05);
+}
+
+@media (max-width: 992px) {
+    .advList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aboutSection {
+        flex-direction: column;
+    }
+
+    .aboutImg,
+    .aboutText {
+        width: 100%;
+    }
+
+    .contactsSection {
+        grid-template-columns: 1fr;
+    }
+
+    .contactsMap {
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .heroContent h1 {
+        font-size: 40px;
+    }
+
+    .heroContent p {
+        font-size: 17px;
+    }
+
+    .advantagesTitle,
+    .aboutText h2,
+    .servicesSection h2,
+    .reviewsSection h2 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 576px) {
+    .heroBanner {
+        min-height: 78vh;
+        padding: 60px 14px;
+    }
+
+    .heroContent h1 {
+        font-size: 30px;
+    }
+
+    .heroContent p {
+        font-size: 15px;
+    }
+
+    .advList {
+        grid-template-columns: 1fr;
+    }
+
+    .aboutSection {
+        padding: 20px 16px;
+    }
+
+    .contactsInfo {
+        padding: 22px 18px;
+    }
+}
