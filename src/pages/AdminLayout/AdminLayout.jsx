@@ -8,12 +8,12 @@ import { outAdmin } from '../../redux/slices/adminSlice'
 function AdminLayout() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { valid } = useSelector(state => state.adminReducer)
+  const { valid } = useSelector((state) => state.adminReducer)
   const location = useLocation()
 
   useEffect(() => {
     if (valid && location.pathname === '/admin') {
-      navigate('/admin/applications')
+      navigate('/admin/companies')
     }
   }, [valid, location.pathname, navigate])
 
@@ -25,9 +25,9 @@ function AdminLayout() {
   if (!valid) {
     return (
       <div className={styles.notWelcome}>
-        <h2>Вы должны войти как администратор</h2>
+        <h2>Доступ разрешён только администратору</h2>
         <Button appearance="primary" onClick={handleLogout}>
-          Выйти
+          На главную
         </Button>
       </div>
     )
@@ -43,7 +43,7 @@ function AdminLayout() {
 
           <div className={styles.titleBlock}>
             <h2>Панель администратора</h2>
-            <p>Level Up Fitness</p>
+            <p>Baalo.kg — управление платформой</p>
           </div>
 
           <button className="adminBtn red" onClick={handleLogout}>
@@ -53,10 +53,17 @@ function AdminLayout() {
 
         <div className={styles.navbar}>
           <NavLink
-            to="/admin/applications"
+            to="/admin/companies"
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
-            Заявки
+            Компании
+          </NavLink>
+
+          <NavLink
+            to="/admin/categories"
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            Категории
           </NavLink>
 
           <NavLink
@@ -67,24 +74,17 @@ function AdminLayout() {
           </NavLink>
 
           <NavLink
-            to="/admin/programs"
+            to="/admin/requests"
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
-            Расписание
-          </NavLink>
-
-          <NavLink
-            to="/admin/trainers"
-            className={({ isActive }) => (isActive ? styles.active : '')}
-          >
-            Тренеры
+            Заявки
           </NavLink>
 
           <NavLink
             to="/admin/news"
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
-            События
+            Новости
           </NavLink>
         </div>
 

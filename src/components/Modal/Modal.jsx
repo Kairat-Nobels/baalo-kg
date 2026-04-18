@@ -88,7 +88,7 @@ const Modal = ({ setModal }) => {
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
                 required
-                placeholder="+996 700 123 456"
+                placeholder="+996 555 575 455"
               />
             </div>
 

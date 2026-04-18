@@ -1,40 +1,53 @@
 import styles from './doctorCard.module.css'
+import { Link } from 'react-router-dom'
 
 function DoctorCard({ data }) {
-    console.log(data);
-
     return (
         <div className={styles.card}>
             <div className={styles.img}>
-                <img src={data.image} alt={data.name} />
+                <img
+                    src={
+                        data.image ||
+                        'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80'
+                    }
+                    alt={data.name}
+                />
             </div>
 
             <div className={styles.content}>
-                <h3 className={styles.name}>{data.name}</h3>
+                <div className={styles.top}>
+                    <h3 className={styles.name}>{data.name}</h3>
 
-                <div className={styles.role}>
-                    {data.subject || 'Персональный тренер'}
+                    <span className={styles.rating}>
+                        ⭐ {data.rating || '4.5'}
+                    </span>
                 </div>
 
-                <div className={styles.info}>
-                    {data.experience && (
-                        <p>
-                            <span>Стаж:</span> {data.experience}
-                        </p>
-                    )}
-
-                    {data.education && (
-                        <p>
-                            <span>Квалификация:</span> {data.education}
-                        </p>
-                    )}
+                <div className={styles.category}>
+                    {data.category || data.subject || 'Категория компании'}
                 </div>
 
-                {data.about && (
+                {data.address && (
+                    <p className={styles.address}>
+                        📍 {data.address}
+                    </p>
+                )}
+
+                {data.phone && (
+                    <p className={styles.phone}>
+                        📞 {data.phone}
+                    </p>
+                )}
+
+                {data.description && (
                     <div className={styles.about}>
-                        {data.about}
+                        {data.description}
                     </div>
                 )}
+
+                <Link to={`/companies/${data.id}`} className={styles.btn}>
+                    Подробнее
+                </Link>
             </div>
         </div>
     )

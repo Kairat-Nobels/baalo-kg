@@ -10,52 +10,52 @@ const ServicesTable = ({ data, onEdit, onDelete }) => {
         <Table.Cell dataKey="id" />
       </Table.Column>
 
-      <Table.Column width={140}>
-        <Table.HeaderCell>День</Table.HeaderCell>
-        <Table.Cell dataKey="day" />
+      <Table.Column width={110}>
+        <Table.HeaderCell>Иконка</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => (
+            <img
+              src={
+                rowData.image ||
+                'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=300&q=80'
+              }
+              alt={rowData.name}
+              style={{
+                width: 60,
+                height: 60,
+                objectFit: 'cover',
+                borderRadius: '12px',
+              }}
+            />
+          )}
+        </Table.Cell>
       </Table.Column>
 
       <Table.Column flexGrow={1.4}>
-        <Table.HeaderCell>Программа</Table.HeaderCell>
+        <Table.HeaderCell>Название</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) => rowData.program || rowData.title || '—'}
+          {(rowData) => rowData.name || rowData.title || '—'}
         </Table.Cell>
       </Table.Column>
 
       <Table.Column flexGrow={1}>
-        <Table.HeaderCell>Тренер</Table.HeaderCell>
-        <Table.Cell dataKey="trainer" />
-      </Table.Column>
-
-      <Table.Column width={140}>
-        <Table.HeaderCell>Время</Table.HeaderCell>
+        <Table.HeaderCell>Тип</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) =>
-            rowData.startTime && rowData.endTime
-              ? `${rowData.startTime} - ${rowData.endTime}`
-              : '—'
-          }
+          {(rowData) => rowData.type || 'Не указан'}
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={120}>
-        <Table.HeaderCell>Зал</Table.HeaderCell>
+      <Table.Column flexGrow={1.8}>
+        <Table.HeaderCell>Описание</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) => rowData.hall || rowData.room || '—'}
+          {(rowData) => rowData.description || '—'}
         </Table.Cell>
       </Table.Column>
 
       <Table.Column width={140}>
-        <Table.HeaderCell>Уровень</Table.HeaderCell>
+        <Table.HeaderCell>Компаний</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) => rowData.level || '—'}
-        </Table.Cell>
-      </Table.Column>
-
-      <Table.Column width={120}>
-        <Table.HeaderCell>Длительность</Table.HeaderCell>
-        <Table.Cell>
-          {(rowData) => rowData.duration || '—'}
+          {(rowData) => rowData.count || rowData.companyCount || '—'}
         </Table.Cell>
       </Table.Column>
 
@@ -70,7 +70,7 @@ const ServicesTable = ({ data, onEdit, onDelete }) => {
                 speaker={<Tooltip>Редактировать</Tooltip>}
               >
                 <Button appearance="subtle" onClick={() => onEdit(rowData)}>
-                  <MdEdit color="#1caf68" size={18} />
+                  <MdEdit color="#2563eb" size={18} />
                 </Button>
               </Whisper>
 

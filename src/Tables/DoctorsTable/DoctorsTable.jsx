@@ -14,13 +14,17 @@ const DoctorsTable = ({ data, onEdit, onDelete }) => {
         <Table.Cell>
           {(rowData) => (
             <img
-              src={rowData.img || rowData.image}
+              src={
+                rowData.img ||
+                rowData.image ||
+                'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=300&q=80'
+              }
               alt={rowData.name}
               style={{
                 width: 64,
                 height: 64,
                 objectFit: 'cover',
-                borderRadius: '10px'
+                borderRadius: '12px',
               }}
             />
           )}
@@ -28,27 +32,36 @@ const DoctorsTable = ({ data, onEdit, onDelete }) => {
       </Table.Column>
 
       <Table.Column flexGrow={1.2}>
-        <Table.HeaderCell>Имя</Table.HeaderCell>
+        <Table.HeaderCell>Название</Table.HeaderCell>
         <Table.Cell dataKey="name" />
       </Table.Column>
 
       <Table.Column flexGrow={1}>
-        <Table.HeaderCell>Должность</Table.HeaderCell>
+        <Table.HeaderCell>Категория</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) => rowData.position || rowData.subject || 'Тренер'}
+          {(rowData) => rowData.category || rowData.subject || 'Не указана'}
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column flexGrow={1.3}>
-        <Table.HeaderCell>Специализация</Table.HeaderCell>
+      <Table.Column flexGrow={1.2}>
+        <Table.HeaderCell>Адрес</Table.HeaderCell>
         <Table.Cell>
-          {(rowData) => rowData.specialization || rowData.education || 'Не указана'}
+          {(rowData) => rowData.address || 'Не указан'}
         </Table.Cell>
       </Table.Column>
 
-      <Table.Column flexGrow={0.8}>
-        <Table.HeaderCell>Стаж</Table.HeaderCell>
-        <Table.Cell dataKey="experience" />
+      <Table.Column flexGrow={1}>
+        <Table.HeaderCell>Телефон</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => rowData.phone || 'Не указан'}
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column width={110} align="center">
+        <Table.HeaderCell>Рейтинг</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => `⭐ ${rowData.rating || '4.5'}`}
+        </Table.Cell>
       </Table.Column>
 
       <Table.Column width={120} align="center" fixed="right">
@@ -62,7 +75,7 @@ const DoctorsTable = ({ data, onEdit, onDelete }) => {
                 speaker={<Tooltip>Редактировать</Tooltip>}
               >
                 <Button onClick={() => onEdit(rowData)} appearance="subtle">
-                  <MdEdit color="#1caf68" size={20} />
+                  <MdEdit color="#2563eb" size={20} />
                 </Button>
               </Whisper>
 

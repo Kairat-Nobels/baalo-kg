@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Modal, Form, Button, Input, DatePicker, Uploader } from 'rsuite';
-import { createNews, updateNews } from '../../redux/slices/newsSlice';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState, useRef } from 'react'
+import { Modal, Form, Button, Input, DatePicker, Uploader } from 'rsuite'
+import { createNews, updateNews } from '../../redux/slices/newsSlice'
+import { useDispatch } from 'react-redux'
 
 const emptyNews = {
   title: '',
@@ -9,55 +9,71 @@ const emptyNews = {
   text: '',
   date: '',
   image: ''
-};
+}
 
 const NewsModal = ({ open, onClose, newsData }) => {
-  const isEdit = Boolean(newsData);
-  const formRef = useRef();
-  const [formValue, setFormValue] = useState(emptyNews);
-  const [imgUrl, setImgUrl] = useState('');
-  const dispatch = useDispatch();
+  const isEdit = Boolean(newsData)
+  const formRef = useRef()
+  const [formValue, setFormValue] = useState(emptyNews)
+  const [imgUrl, setImgUrl] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (isEdit) {
-      setFormValue(newsData);
-      setImgUrl(newsData.image || '');
+    if (isEdit && newsData) {
+      setFormValue({
+        title: newsData.title || '',
+        subtitle: newsData.subtitle || '',
+        text: newsData.text || '',
+        date: newsData.date || '',
+        image: newsData.image || '',
+      })
+      setImgUrl(newsData.image || '')
     } else {
-      setFormValue(emptyNews);
-      setImgUrl('');
+      setFormValue(emptyNews)
+      setImgUrl('')
     }
-  }, [newsData, isEdit]);
+  }, [newsData, isEdit])
 
   const handleChange = (val, key) => {
-    setFormValue(prev => ({ ...prev, [key]: val }));
-  };
+    setFormValue((prev) => ({ ...prev, [key]: val }))
+  }
 
   const handleSubmit = () => {
-    if (!formRef.current.check()) return;
+    if (!formValue.title || !formValue.text || !formValue.date) return
 
-    const payload = { ...formValue, image: imgUrl };
-
-    if (isEdit) {
-      dispatch(updateNews({ id: newsData.id, news: payload }));
-    } else {
-      dispatch(createNews(payload));
+    const payload = {
+      ...formValue,
+      image: imgUrl,
+      date:
+        formValue.date instanceof Date
+          ? formValue.date.toISOString().slice(0, 10)
+          : formValue.date,
     }
 
-    onClose();
-  };
+    if (isEdit) {
+      dispatch(updateNews({ id: newsData.id, news: payload }))
+    } else {
+      dispatch(createNews(payload))
+    }
+
+    onClose()
+  }
 
   return (
     <Modal open={open} onClose={onClose} size="md" className="doctor-modal">
       <Modal.Header>
-        <Modal.Title>{isEdit ? 'Редактировать новость' : 'Добавить новость'}</Modal.Title>
+        <Modal.Title>
+          {isEdit ? 'Редактировать новость' : 'Добавить новость'}
+        </Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <div className="doctor-modal__img">
           {imgUrl && (
             <img
               src={imgUrl}
-              alt="doctor"
-              style={{ width: "100%", borderRadius: 8 }}
+              alt="news"
+              style={{ width: '100%', borderRadius: 8 }}
             />
           )}
 
@@ -68,11 +84,11 @@ const NewsModal = ({ open, onClose, newsData }) => {
             style={{ marginTop: '15px' }}
             fileListVisible={false}
             onSuccess={(res) => {
-              const url = res?.url;
-              if (url) setImgUrl(url);
+              const url = res?.url
+              if (url) setImgUrl(url)
             }}
           >
-            <Button appearance="ghost">Загрузить фото</Button>
+            <Button appearance="ghost">Загрузить изображение</Button>
           </Uploader>
 
           <Input
@@ -82,40 +98,50 @@ const NewsModal = ({ open, onClose, newsData }) => {
             style={{ marginTop: 10 }}
           />
         </div>
+
         <Form fluid ref={formRef}>
           <Form.Group>
             <Form.ControlLabel>Заголовок</Form.ControlLabel>
             <Input
               value={formValue.title}
-              onChange={val => handleChange(val, 'title')}
-              placeholder="Заголовок новости"
+              onChange={(val) => handleChange(val, 'title')}
+              placeholder="Например, Новая акция компании"
             />
           </Form.Group>
+
           <Form.Group>
-            <Form.ControlLabel>Подзаголовок</Form.ControlLabel>
+            <Form.ControlLabel>Краткое описание</Form.ControlLabel>
             <Input
               value={formValue.subtitle}
-              onChange={val => handleChange(val, 'subtitle')}
-              placeholder="Подзаголовок"
+              onChange={(val) => handleChange(val, 'subtitle')}
+              placeholder="Краткое описание новости"
             />
           </Form.Group>
+
           <Form.Group>
-            <Form.ControlLabel>Текст</Form.ControlLabel>
+            <Form.ControlLabel>Текст новости</Form.ControlLabel>
             <Input
               as="textarea"
               rows={5}
               value={formValue.text}
-              onChange={val => handleChange(val, 'text')}
-              placeholder="Текст новости"
+              onChange={(val) => handleChange(val, 'text')}
+              placeholder="Введите полный текст новости"
             />
           </Form.Group>
+
           <Form.Group>
             <Form.ControlLabel>Дата</Form.ControlLabel>
             <DatePicker
               format="yyyy-MM-dd"
-              value={formValue.date ? new Date(formValue.date) : null}
-              onChange={val => handleChange(val, 'date')}
-              placeholder="Дата"
+              value={
+                formValue.date
+                  ? formValue.date instanceof Date
+                    ? formValue.date
+                    : new Date(formValue.date)
+                  : null
+              }
+              onChange={(val) => handleChange(val, 'date')}
+              placeholder="Дата публикации"
               style={{ width: '100%' }}
               oneTap
               cleanable
@@ -123,24 +149,22 @@ const NewsModal = ({ open, onClose, newsData }) => {
           </Form.Group>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
         <Button
           appearance="primary"
           onClick={handleSubmit}
-          disabled={
-            !formValue.title ||
-            !formValue.text ||
-            !formValue.date
-          }
+          disabled={!formValue.title || !formValue.text || !formValue.date}
         >
           Сохранить
         </Button>
+
         <Button onClick={onClose} appearance="subtle">
           Отмена
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default NewsModal;
+export default NewsModal

@@ -1,23 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
-import {
-  Modal,
-  Button,
-  Form,
-  Schema,
-  Uploader,
-  Input,
-} from 'rsuite'
+import { Modal, Button, Form, Schema, Uploader, Input } from 'rsuite'
 import { useDispatch } from 'react-redux'
 import { createDoctor, updateDoctor } from '../../redux/slices/doctorsSlice'
 
-const { StringType } = Schema.Types
+const { StringType, NumberType } = Schema.Types
 
 const model = Schema.Model({
-  name: StringType().isRequired('Укажите имя'),
-  position: StringType().isRequired('Укажите должность'),
-  specialization: StringType().isRequired('Укажите специализацию'),
-  experience: StringType().isRequired('Укажите стаж'),
-  about: StringType().isRequired('Укажите описание'),
+  name: StringType().isRequired('Укажите название компании'),
+  category: StringType().isRequired('Укажите категорию'),
+  address: StringType().isRequired('Укажите адрес'),
+  phone: StringType().isRequired('Укажите телефон'),
+  description: StringType().isRequired('Укажите описание'),
+  rating: NumberType().isRequired('Укажите рейтинг'),
 })
 
 const Textarea = React.forwardRef((props, ref) => (
@@ -30,30 +24,37 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
 
   const [formValue, setFormValue] = useState({
     name: '',
-    position: '',
-    specialization: '',
-    experience: '',
-    about: '',
+    category: '',
+    address: '',
+    phone: '',
+    rating: 5,
+    description: '',
+    website: '',
   })
+
   const [imgUrl, setImgUrl] = useState('')
 
   useEffect(() => {
     if (doctorData) {
       setFormValue({
         name: doctorData.name || '',
-        position: doctorData.position || doctorData.subject || '',
-        specialization: doctorData.specialization || doctorData.education || '',
-        experience: doctorData.experience || '',
-        about: doctorData.about || '',
+        category: doctorData.category || doctorData.subject || '',
+        address: doctorData.address || '',
+        phone: doctorData.phone || '',
+        rating: Number(doctorData.rating || 5),
+        description: doctorData.description || doctorData.about || '',
+        website: doctorData.website || '',
       })
       setImgUrl(doctorData.image || doctorData.img || '')
     } else {
       setFormValue({
         name: '',
-        position: '',
-        specialization: '',
-        experience: '',
-        about: '',
+        category: '',
+        address: '',
+        phone: '',
+        rating: 5,
+        description: '',
+        website: '',
       })
       setImgUrl('')
     }
@@ -81,7 +82,7 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
     <Modal open={open} onClose={onClose} size="md" className="doctor-modal">
       <Modal.Header>
         <Modal.Title>
-          {doctorData ? 'Редактировать тренера' : 'Добавить тренера'}
+          {doctorData ? 'Редактировать компанию' : 'Добавить компанию'}
         </Modal.Title>
       </Modal.Header>
 
@@ -90,7 +91,7 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
           {imgUrl && (
             <img
               src={imgUrl}
-              alt="trainer"
+              alt="company"
               style={{ width: '100%', borderRadius: 8 }}
             />
           )}
@@ -126,31 +127,57 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
           className="doctor-modal__form"
         >
           <Form.Group>
-            <Form.ControlLabel>Имя тренера:</Form.ControlLabel>
+            <Form.ControlLabel>Название компании:</Form.ControlLabel>
             <Form.Control name="name" />
           </Form.Group>
 
           <Form.Group>
-            <Form.ControlLabel>Должность:</Form.ControlLabel>
-            <Form.Control name="position" placeholder="Например, Персональный тренер" />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel>Специализация:</Form.ControlLabel>
+            <Form.ControlLabel>Категория:</Form.ControlLabel>
             <Form.Control
-              name="specialization"
-              placeholder="Например, Функциональный тренинг, кардио, снижение веса"
+              name="category"
+              placeholder="Например, Кафе, Салон красоты, СТО"
             />
           </Form.Group>
 
           <Form.Group>
-            <Form.ControlLabel>Стаж:</Form.ControlLabel>
-            <Form.Control name="experience" placeholder="Например, 6 лет" />
+            <Form.ControlLabel>Адрес:</Form.ControlLabel>
+            <Form.Control
+              name="address"
+              placeholder="Например, г. Бишкек, ул. Киевская 95"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Телефон:</Form.ControlLabel>
+            <Form.Control
+              name="phone"
+              placeholder="Например, +996 700 123 456"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Рейтинг:</Form.ControlLabel>
+            <Form.Control
+              name="rating"
+              type="number"
+              min={1}
+              max={5}
+              step={0.1}
+              placeholder="Например, 4.8"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Сайт:</Form.ControlLabel>
+            <Form.Control
+              name="website"
+              placeholder="Например, https://company.kg"
+            />
           </Form.Group>
 
           <Form.Group className="doctor-modal__textarea">
-            <Form.ControlLabel>О тренере:</Form.ControlLabel>
-            <Form.Control name="about" accepter={Textarea} rows={4} />
+            <Form.ControlLabel>Описание компании:</Form.ControlLabel>
+            <Form.Control name="description" accepter={Textarea} rows={4} />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -159,15 +186,15 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
         <Button
           disabled={
             !formValue.name ||
-            !formValue.position ||
-            !formValue.specialization ||
-            !formValue.experience ||
-            !formValue.about
+            !formValue.category ||
+            !formValue.address ||
+            !formValue.phone ||
+            !formValue.description
           }
           appearance="primary"
           onClick={handleSubmit}
         >
-          {doctorData ? 'Сохранить изменения' : 'Добавить тренера'}
+          {doctorData ? 'Сохранить изменения' : 'Добавить компанию'}
         </Button>
 
         <Button onClick={onClose} appearance="subtle">

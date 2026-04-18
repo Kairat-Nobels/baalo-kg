@@ -19,14 +19,14 @@ const ServicesPage = () => {
   const [selectedService, setSelectedService] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState(null)
-  const [selectedDay, setSelectedDay] = useState(null)
+  const [selectedCategoryType, setSelectedCategoryType] = useState(null)
 
   useEffect(() => {
     dispatch(getService())
   }, [dispatch])
 
-  const handleEdit = (service) => {
-    setSelectedService(service)
+  const handleEdit = (category) => {
+    setSelectedService(category)
     setModalOpen(true)
   }
 
@@ -35,8 +35,8 @@ const ServicesPage = () => {
     setModalOpen(true)
   }
 
-  const handleDelete = (service) => {
-    setDeleteTarget(service)
+  const handleDelete = (category) => {
+    setDeleteTarget(category)
   }
 
   const confirmDelete = () => {
@@ -56,15 +56,15 @@ const ServicesPage = () => {
     setSelectedService(null)
   }
 
-  const dayOptions = [
-    ...new Set((services || []).map(item => item.day).filter(Boolean))
-  ].map(day => ({
-    label: day,
-    value: day
+  const typeOptions = [
+    ...new Set((services || []).map((item) => item.type).filter(Boolean))
+  ].map((type) => ({
+    label: type,
+    value: type
   }))
 
-  const filteredServices = selectedDay
-    ? services.filter(item => item.day === selectedDay)
+  const filteredServices = selectedCategoryType
+    ? services.filter((item) => item.type === selectedCategoryType)
     : services
 
   return (
@@ -73,20 +73,20 @@ const ServicesPage = () => {
         className="adminStaffHeader"
         style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}
       >
-        <h3 style={{ margin: 0 }}>Расписание тренировок</h3>
+        <h3 style={{ margin: 0 }}>Категории компаний</h3>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
           <SelectPicker
-            data={dayOptions}
-            value={selectedDay}
-            onChange={setSelectedDay}
-            placeholder="Фильтр по дню"
+            data={typeOptions}
+            value={selectedCategoryType}
+            onChange={setSelectedCategoryType}
+            placeholder="Фильтр по типу"
             style={{ width: 220 }}
             cleanable
           />
 
           <Button color="orange" appearance="ghost" onClick={handleAdd}>
-            + Добавить тренировку
+            + Добавить категорию
           </Button>
         </div>
       </div>

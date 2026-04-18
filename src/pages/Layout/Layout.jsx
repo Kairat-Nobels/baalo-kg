@@ -163,7 +163,7 @@ function Layout() {
 
                                     <div className={styles.mobileInfo}>
                                         <p className={styles.tel}>
-                                            <a href="tel:+996700123456">+996 700 123 456</a>
+                                            <a href="tel:+996555 575 455">+996 555 575 455</a>
                                         </p>
                                         <p className={styles.workTime}>
                                             Платформа для поиска компаний, отзывов и рейтингов в

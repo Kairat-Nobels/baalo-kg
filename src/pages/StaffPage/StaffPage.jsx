@@ -19,8 +19,8 @@ const StaffPage = () => {
     dispatch(getDoctors())
   }, [dispatch])
 
-  const handleEdit = (trainer) => {
-    setEditDoctor(trainer)
+  const handleEdit = (company) => {
+    setEditDoctor(company)
     setShowModal(true)
   }
 
@@ -32,9 +32,10 @@ const StaffPage = () => {
   return (
     <div className="adminStaff">
       <div className="adminStaffHeader">
-        <h3>Тренеры</h3>
+        <h3>Компании</h3>
+
         <Button color="orange" appearance="ghost" onClick={handleAdd}>
-          + Добавить тренера
+          + Добавить компанию
         </Button>
       </div>
 
@@ -49,7 +50,7 @@ const StaffPage = () => {
         <DoctorsTable
           data={doctors}
           onEdit={handleEdit}
-          onDelete={(trainer) => setDeleteTarget(trainer)}
+          onDelete={(company) => setDeleteTarget(company)}
         />
       )}
 

@@ -1,13 +1,24 @@
-import React from 'react';
-import { Table, Button, Whisper, Tooltip } from 'rsuite';
-import { MdDeleteOutline } from 'react-icons/md';
+import React from 'react'
+import { Table, Button, Whisper, Tooltip } from 'rsuite'
+import { MdDeleteOutline } from 'react-icons/md'
 
 const ReviewsTable = ({ data, onDelete }) => {
-
   return (
-    <Table bordered cellBordered data={data} autoHeight wordWrap="break-word" locale={{
-      emptyMessage: 'Нет отзывов',
-    }}>
+    <Table
+      bordered
+      cellBordered
+      data={data}
+      autoHeight
+      wordWrap="break-word"
+      locale={{
+        emptyMessage: 'Нет отзывов',
+      }}
+    >
+      <Table.Column width={70} align="center">
+        <Table.HeaderCell>ID</Table.HeaderCell>
+        <Table.Cell dataKey="id" />
+      </Table.Column>
+
       <Table.Column flexGrow={1}>
         <Table.HeaderCell>Имя</Table.HeaderCell>
         <Table.Cell dataKey="name" />
@@ -18,16 +29,35 @@ const ReviewsTable = ({ data, onDelete }) => {
         <Table.Cell dataKey="phone" />
       </Table.Column>
 
-      <Table.Column flexGrow={3} fixed>
+      <Table.Column flexGrow={1}>
+        <Table.HeaderCell>Компания</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) =>
+            rowData.companyName ||
+            rowData.company ||
+            rowData.doctorName ||
+            '—'
+          }
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column width={100} align="center">
+        <Table.HeaderCell>Рейтинг</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => `⭐ ${rowData.rating || 5}`}
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column flexGrow={2.5}>
         <Table.HeaderCell>Отзыв</Table.HeaderCell>
         <Table.Cell dataKey="comment" />
       </Table.Column>
 
-      <Table.Column width={100} align="center">
+      <Table.Column width={110} align="center" fixed="right">
         <Table.HeaderCell>Действия</Table.HeaderCell>
-        <Table.Cell className='deleteBtnTable'>
+        <Table.Cell className="deleteBtnTable">
           {(rowData) => (
-            < Whisper
+            <Whisper
               trigger="hover"
               placement="top"
               speaker={<Tooltip>Удалить</Tooltip>}
@@ -39,8 +69,8 @@ const ReviewsTable = ({ data, onDelete }) => {
           )}
         </Table.Cell>
       </Table.Column>
-    </Table >
-  );
-};
+    </Table>
+  )
+}
 
-export default ReviewsTable;
+export default ReviewsTable

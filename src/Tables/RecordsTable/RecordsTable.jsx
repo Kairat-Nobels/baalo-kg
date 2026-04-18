@@ -21,22 +21,35 @@ const RecordsTable = ({ data, onDelete }) => {
 
       <Table.Column flexGrow={1}>
         <Table.HeaderCell>Имя</Table.HeaderCell>
-        <Table.Cell dataKey="fullName" />
+        <Table.Cell>
+          {(rowData) => rowData.fullName || rowData.name || '—'}
+        </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={150}>
+      <Table.Column width={160}>
         <Table.HeaderCell>Телефон</Table.HeaderCell>
         <Table.Cell dataKey="phone" />
       </Table.Column>
 
-      <Table.Column width={180}>
-        <Table.HeaderCell>Тип заявки</Table.HeaderCell>
-        <Table.Cell dataKey="requestType" />
+      <Table.Column flexGrow={1}>
+        <Table.HeaderCell>Название компании</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => rowData.companyName || '—'}
+        </Table.Cell>
       </Table.Column>
 
-      <Table.Column width={180}>
-        <Table.HeaderCell>Тариф</Table.HeaderCell>
-        <Table.Cell dataKey="membership" />
+      <Table.Column flexGrow={1}>
+        <Table.HeaderCell>Категория</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => rowData.category || '—'}
+        </Table.Cell>
+      </Table.Column>
+
+      <Table.Column flexGrow={1.2}>
+        <Table.HeaderCell>Адрес</Table.HeaderCell>
+        <Table.Cell>
+          {(rowData) => rowData.address || '—'}
+        </Table.Cell>
       </Table.Column>
 
       <Table.Column width={120}>
@@ -53,10 +66,10 @@ const RecordsTable = ({ data, onDelete }) => {
             <span
               style={{
                 display: 'block',
-                maxWidth: 300,
+                maxWidth: 320,
                 whiteSpace: 'pre-line',
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                textOverflow: 'ellipsis',
               }}
             >
               {rowData.comment || '—'}

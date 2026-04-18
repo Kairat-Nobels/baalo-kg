@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SuccessMessage from '../SuccessMessage/SuccessMessage'
 import SpinnerModal from '../SpinnerModal/SpinnerModal'
-import { createReview, getReviews } from '../../redux/slices/reviewsSlice'
+import { createReview } from '../../redux/slices/reviewsSlice'
 
 function ReviewModal({ setModal }) {
     const [result, setResult] = useState(false)
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [comment, setComment] = useState('')
+    const [rating, setRating] = useState('5')
     const [isValid, setIsValid] = useState(false)
 
     const dispatch = useDispatch()
-    const { error, loading, success } = useSelector(state => state.reviewsReducer)
+    const { error, loading, success } = useSelector((state) => state.reviewsReducer)
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
@@ -52,7 +53,8 @@ function ReviewModal({ setModal }) {
         const rew = {
             name,
             phone,
-            comment
+            comment,
+            rating: Number(rating),
         }
 
         dispatch(createReview(rew))
@@ -66,8 +68,16 @@ function ReviewModal({ setModal }) {
     return (
         <div onClick={closeModal} className={styles.window}>
             <form onSubmit={handleSubmit} className={styles.form}>
-                <h2>Оставьте отзыв</h2>
-                <div onClick={handleClose} className={styles.closeX}>×</div>
+                <div onClick={handleClose} className={styles.closeX}>
+                    ×
+                </div>
+
+                <span className={styles.badge}>Baalo.kg</span>
+                <h2>Оставить отзыв</h2>
+                <p className={styles.subtext}>
+                    Поделитесь своим мнением о компании и помогите другим пользователям
+                    сделать правильный выбор.
+                </p>
 
                 {result ? (
                     loading ? (
@@ -77,7 +87,6 @@ function ReviewModal({ setModal }) {
                         </div>
                     ) : (
                         <div className={styles.message}>
-
                             {error ? (
                                 <ErrorMessage message={error} />
                             ) : (
@@ -91,7 +100,7 @@ function ReviewModal({ setModal }) {
                             <label>Имя</label>
                             <input
                                 value={name}
-                                onChange={e => setName(e.target.value)}
+                                onChange={(e) => setName(e.target.value)}
                                 required
                                 type="text"
                                 placeholder="Ваше имя"
@@ -115,19 +124,34 @@ function ReviewModal({ setModal }) {
                         )}
 
                         <div className={styles.formGroup}>
+                            <label>Оценка</label>
+                            <select
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                                required
+                            >
+                                <option value="5">5 — Отлично</option>
+                                <option value="4">4 — Хорошо</option>
+                                <option value="3">3 — Нормально</option>
+                                <option value="2">2 — Слабо</option>
+                                <option value="1">1 — Плохо</option>
+                            </select>
+                        </div>
+
+                        <div className={styles.formGroup}>
                             <label>Отзыв</label>
                             <textarea
                                 maxLength={320}
                                 value={comment}
-                                onChange={e => setComment(e.target.value)}
+                                onChange={(e) => setComment(e.target.value)}
                                 required
                                 rows="4"
-                                placeholder="Поделитесь впечатлением о клубе"
+                                placeholder="Расскажите о вашем опыте"
                             ></textarea>
                         </div>
 
                         <button disabled={!isValid} type="submit">
-                            Отправить
+                            Отправить отзыв
                         </button>
                     </>
                 )}

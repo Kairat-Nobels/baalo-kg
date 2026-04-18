@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styles from './footer.module.css'
-import { FaInstagram, FaWhatsapp, FaPhoneAlt } from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 import { useState } from 'react'
 import Modal from '../Modal/Modal'
 
@@ -12,18 +12,21 @@ function Footer() {
             <div className="container">
                 <div className={styles.footerTop}>
                     <NavLink className={styles.logo} to="/">
-                        <h1>LEVEL</h1>
                         <div className={styles.logoImg}>
-                            <span>UP</span>
+                            <span>B</span>
                         </div>
-                        <h1>FITNESS</h1>
+
+                        <div className={styles.logoText}>
+                            <h1>Baalo.kg</h1>
+                            <p>Отзывы и рейтинги компаний Бишкека</p>
+                        </div>
                     </NavLink>
 
                     <div className={styles.socials}>
                         <a
                             target="_blank"
                             rel="noreferrer"
-                            href="https://www.instagram.com/fitness.levelup/"
+                            href="https://www.instagram.com/"
                             aria-label="Instagram"
                         >
                             <FaInstagram />
@@ -32,13 +35,13 @@ function Footer() {
                         <a
                             target="_blank"
                             rel="noreferrer"
-                            href="https://wa.me/996555563636"
+                            href="https://wa.me/996555575455"
                             aria-label="WhatsApp"
                         >
                             <FaWhatsapp />
                         </a>
 
-                        <a href="tel:+996555563636" aria-label="Phone">
+                        <a href="tel:+996555575455" aria-label="Phone">
                             <FaPhoneAlt />
                         </a>
                     </div>
@@ -47,42 +50,66 @@ function Footer() {
                 <div className={styles.footerContent}>
                     <div className={styles.infoBlock}>
                         <h3>Контакты</h3>
-                        <p>г. Бишкек, Level Up Fitness</p>
-                        <p>
-                            Телефон: <a href="tel:+996700123456">+996 700 123 456</a>
+
+                        <div className={styles.contactItem}>
+                            <FaMapMarkerAlt />
+                            <p>г. Бишкек, Кыргызстан</p>
+                        </div>
+
+                        <div className={styles.contactItem}>
+                            <FaPhoneAlt />
+                            <p>
+                                <a href="tel:+996555575455">+996 555 575 455</a>
+                            </p>
+                        </div>
+
+                        <div className={styles.contactItem}>
+                            <FaEnvelope />
+                            <p>
+                                <a href="mailto:info@baalo.kg">info@baalo.kg</a>
+                            </p>
+                        </div>
+
+                        <p className={styles.contactText}>
+                            Платформа для поиска компаний, чтения отзывов и просмотра
+                            пользовательских рейтингов.
                         </p>
-                        <p>
-                            Email:{' '}
-                            <a href="mailto:levelupfitness@gmail.com">
-                                levelupfitness@gmail.com
-                            </a>
-                        </p>
-                        <p>Режим работы: ПН-ВС, 07:00 – 22:00</p>
                     </div>
 
                     <div className={styles.infoBlock}>
                         <h3>Навигация</h3>
                         <ul className={styles.navList}>
-                            <li><NavLink to="/">Главная</NavLink></li>
-                            <li><NavLink to="/schedule">Расписание</NavLink></li>
-                            <li><NavLink to="/trainers">Тренеры</NavLink></li>
-                            <li><NavLink to="/news">Новости</NavLink></li>
+                            <li>
+                                <NavLink to="/">Главная</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/companies">Компании</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/news">Новости</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/admin">Админ-панель</NavLink>
+                            </li>
                         </ul>
                     </div>
 
                     <div className={styles.actionBlock}>
-                        <h3>Готов начать?</h3>
+                        <span className={styles.actionBadge}>Baalo.kg</span>
+                        <h3>Поделитесь своим мнением</h3>
                         <p>
-                            Оставь заявку и начни тренировки вместе с Level Up Fitness
+                            Оставляйте отзывы о компаниях, чтобы помочь другим людям
+                            быстрее находить качественный сервис в Бишкеке.
                         </p>
+
                         <button onClick={() => setModal(true)} className={styles.linkBtn}>
-                            Оставить заявку
+                            Оставить отзыв
                         </button>
                     </div>
                 </div>
 
                 <div className={styles.bottom}>
-                    <p>© 2026 Level Up Fitness. Все права защищены.</p>
+                    <p>© 2026 Baalo.kg. Все права защищены.</p>
                 </div>
 
                 {modal && <Modal setModal={setModal} />}

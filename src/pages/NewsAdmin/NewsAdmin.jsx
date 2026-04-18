@@ -19,8 +19,8 @@ const NewsAdmin = () => {
     dispatch(getNews())
   }, [dispatch])
 
-  const handleEdit = (eventItem) => {
-    setEditEvent(eventItem)
+  const handleEdit = (newsItem) => {
+    setEditEvent(newsItem)
     setShowModal(true)
   }
 
@@ -32,9 +32,10 @@ const NewsAdmin = () => {
   return (
     <div className="adminStaff">
       <div className="adminStaffHeader">
-        <h3>События</h3>
+        <h3>Новости компаний</h3>
+
         <Button color="orange" appearance="ghost" onClick={handleAdd}>
-          + Добавить событие
+          + Добавить новость
         </Button>
       </div>
 
@@ -57,13 +58,16 @@ const NewsAdmin = () => {
             <Table.Cell>
               {(rowData) => (
                 <img
-                  src={rowData.image}
+                  src={
+                    rowData.image ||
+                    'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=400&q=80'
+                  }
                   alt={rowData.title}
                   style={{
                     width: 70,
                     height: 46,
                     objectFit: 'cover',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
                   }}
                 />
               )}
@@ -81,7 +85,7 @@ const NewsAdmin = () => {
           </Table.Column>
 
           <Table.Column flexGrow={2}>
-            <Table.HeaderCell>Описание</Table.HeaderCell>
+            <Table.HeaderCell>Текст новости</Table.HeaderCell>
             <Table.Cell>
               {(rowData) => (
                 <span
@@ -90,7 +94,7 @@ const NewsAdmin = () => {
                     maxWidth: 350,
                     whiteSpace: 'pre-line',
                     overflow: 'hidden',
-                    textOverflow: 'ellipsis'
+                    textOverflow: 'ellipsis',
                   }}
                 >
                   {rowData.text}
@@ -99,14 +103,10 @@ const NewsAdmin = () => {
             </Table.Cell>
           </Table.Column>
 
-          <Table.Column width={120}>
+          <Table.Column width={140}>
             <Table.HeaderCell>Дата</Table.HeaderCell>
             <Table.Cell>
-              {(rowData) =>
-                rowData.date
-                  ? new Date(rowData.date).toISOString().slice(0, 10)
-                  : ''
-              }
+              {(rowData) => rowData.date || '—'}
             </Table.Cell>
           </Table.Column>
 
@@ -121,7 +121,7 @@ const NewsAdmin = () => {
                     speaker={<Tooltip>Редактировать</Tooltip>}
                   >
                     <Button onClick={() => handleEdit(rowData)} appearance="subtle">
-                      <MdEdit color="#1caf68" size={20} />
+                      <MdEdit color="#2563eb" size={20} />
                     </Button>
                   </Whisper>
 

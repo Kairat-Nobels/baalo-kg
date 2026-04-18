@@ -1,164 +1,89 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Form, Button, Input, TimePicker, SelectPicker } from 'rsuite'
+import { Modal, Form, Button, Input, SelectPicker } from 'rsuite'
 
-const emptyWorkout = {
-  day: '',
-  program: '',
-  trainer: '',
-  startTime: '',
-  endTime: '',
-  hall: '',
-  level: '',
-  duration: ''
+const emptyCategory = {
+  name: '',
+  type: '',
+  description: '',
+  count: '',
+  image: ''
 }
 
-const dayOptions = [
-  { label: 'Понедельник', value: 'Понедельник' },
-  { label: 'Вторник', value: 'Вторник' },
-  { label: 'Среда', value: 'Среда' },
-  { label: 'Четверг', value: 'Четверг' },
-  { label: 'Пятница', value: 'Пятница' },
-  { label: 'Суббота', value: 'Суббота' },
-  { label: 'Воскресенье', value: 'Воскресенье' }
-]
-
-const levelOptions = [
-  { label: 'Начальный', value: 'Начальный' },
-  { label: 'Средний', value: 'Средний' },
-  { label: 'Продвинутый', value: 'Продвинутый' },
-  { label: 'Все уровни', value: 'Все уровни' },
-  { label: 'Индивидуально', value: 'Индивидуально' }
+const typeOptions = [
+  { label: 'Общественное питание', value: 'Общественное питание' },
+  { label: 'Красота и уход', value: 'Красота и уход' },
+  { label: 'Автоуслуги', value: 'Автоуслуги' },
+  { label: 'Магазины', value: 'Магазины' },
+  { label: 'Медицина', value: 'Медицина' },
+  { label: 'Образование', value: 'Образование' },
+  { label: 'Услуги', value: 'Услуги' },
+  { label: 'Другое', value: 'Другое' }
 ]
 
 const ServiceEditModal = ({ open, onClose, serviceData, onSubmit }) => {
-  const [formData, setFormData] = useState(emptyWorkout)
+  const [formData, setFormData] = useState(emptyCategory)
 
   const isEdit = !!serviceData
 
   useEffect(() => {
     if (serviceData) {
       setFormData({
-        day: serviceData.day || '',
-        program: serviceData.program || serviceData.title || '',
-        trainer: serviceData.trainer || '',
-        startTime: serviceData.startTime || '',
-        endTime: serviceData.endTime || '',
-        hall: serviceData.hall || serviceData.room || '',
-        level: serviceData.level || '',
-        duration: serviceData.duration || ''
+        name: serviceData.name || serviceData.title || '',
+        type: serviceData.type || '',
+        description: serviceData.description || '',
+        count: serviceData.count || serviceData.companyCount || '',
+        image: serviceData.image || ''
       })
     } else {
-      setFormData(emptyWorkout)
+      setFormData(emptyCategory)
     }
   }, [serviceData])
 
   const handleChange = (value, key) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [key]: value
     }))
   }
 
   const handleSave = () => {
-    onSubmit(formData, serviceData?.id)
+    onSubmit(
+      {
+        ...formData,
+        count: formData.count ? Number(formData.count) : ''
+      },
+      serviceData?.id
+    )
   }
 
-  const isDisabled =
-    !formData.day ||
-    !formData.program ||
-    !formData.trainer ||
-    !formData.startTime ||
-    !formData.endTime ||
-    !formData.hall
+  const isDisabled = !formData.name || !formData.type || !formData.description
 
   return (
-    <Modal open={open} onClose={onClose} size={560}>
+    <Modal open={open} onClose={onClose} size="md" className="category-modal">
       <Modal.Header>
         <Modal.Title>
-          {isEdit ? 'Редактировать тренировку' : 'Добавить тренировку'}
+          {isEdit ? 'Редактировать категорию' : 'Добавить категорию'}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <Form fluid className="sheduleForm">
+        <Form fluid className="category-modal__form">
           <Form.Group>
-            <Form.ControlLabel>День</Form.ControlLabel>
+            <Form.ControlLabel>Название категории</Form.ControlLabel>
+            <Input
+              value={formData.name}
+              onChange={(val) => handleChange(val, 'name')}
+              placeholder="Например, Кафе и рестораны"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Тип</Form.ControlLabel>
             <SelectPicker
-              data={dayOptions}
-              value={formData.day}
-              onChange={val => handleChange(val || '', 'day')}
-              placeholder="Выберите день"
-              style={{ width: '100%' }}
-              searchable={false}
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel>Программа</Form.ControlLabel>
-            <Input
-              value={formData.program}
-              onChange={val => handleChange(val, 'program')}
-              placeholder="Например, Функциональный тренинг"
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel>Тренер</Form.ControlLabel>
-            <Input
-              value={formData.trainer}
-              onChange={val => handleChange(val, 'trainer')}
-              placeholder="Например, Алина Осмонова"
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel style={{ display: 'block', whiteSpace: 'nowrap' }}>
-              Время начала
-            </Form.ControlLabel>
-            <TimePicker
-              format="HH:mm"
-              value={formData.startTime ? new Date(`1970-01-01T${formData.startTime}:00`) : null}
-              onChange={val =>
-                handleChange(val ? val.toTimeString().slice(0, 5) : '', 'startTime')
-              }
-              placeholder="08:00"
-              style={{ width: '100%' }}
-              cleanable
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel style={{ display: 'block', whiteSpace: 'nowrap' }}>
-              Время окончания
-            </Form.ControlLabel>
-            <TimePicker
-              format="HH:mm"
-              value={formData.endTime ? new Date(`1970-01-01T${formData.endTime}:00`) : null}
-              onChange={val =>
-                handleChange(val ? val.toTimeString().slice(0, 5) : '', 'endTime')
-              }
-              placeholder="09:00"
-              style={{ width: '100%' }}
-              cleanable
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel>Зал</Form.ControlLabel>
-            <Input
-              value={formData.hall}
-              onChange={val => handleChange(val, 'hall')}
-              placeholder="Например, Зал A"
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.ControlLabel>Уровень</Form.ControlLabel>
-            <SelectPicker
-              data={levelOptions}
-              value={formData.level}
-              onChange={val => handleChange(val || '', 'level')}
-              placeholder="Выберите уровень"
+              data={typeOptions}
+              value={formData.type}
+              onChange={(val) => handleChange(val || '', 'type')}
+              placeholder="Выберите тип"
               style={{ width: '100%' }}
               searchable={false}
               cleanable
@@ -166,11 +91,32 @@ const ServiceEditModal = ({ open, onClose, serviceData, onSubmit }) => {
           </Form.Group>
 
           <Form.Group>
-            <Form.ControlLabel>Длительность</Form.ControlLabel>
+            <Form.ControlLabel>Описание</Form.ControlLabel>
             <Input
-              value={formData.duration}
-              onChange={val => handleChange(val, 'duration')}
-              placeholder="Например, 60 мин"
+              as="textarea"
+              rows={5}
+              value={formData.description}
+              onChange={(val) => handleChange(val, 'description')}
+              placeholder="Кратко опишите категорию"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Количество компаний</Form.ControlLabel>
+            <Input
+              type="number"
+              value={formData.count}
+              onChange={(val) => handleChange(val, 'count')}
+              placeholder="Например, 24"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.ControlLabel>Ссылка на изображение</Form.ControlLabel>
+            <Input
+              value={formData.image}
+              onChange={(val) => handleChange(val, 'image')}
+              placeholder="https://..."
             />
           </Form.Group>
         </Form>

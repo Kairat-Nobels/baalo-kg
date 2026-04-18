@@ -18,7 +18,7 @@ const RecordsPage = () => {
   return (
     <div className="adminRecords">
       <div className="adminRecordHeader">
-        <h3>Заявки клиентов</h3>
+        <h3>Заявки на добавление компании</h3>
       </div>
 
       {loading ? (
