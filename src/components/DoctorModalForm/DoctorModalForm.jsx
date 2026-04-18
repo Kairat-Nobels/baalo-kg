@@ -97,7 +97,7 @@ const DoctorModalForm = ({ open, onClose, doctorData }) => {
           )}
 
           <Uploader
-            action="https://cb78bf6d31726098.mokky.dev/uploads"
+            action="https://c7f30b7cc3f5dd94.mokky.dev/uploads"
             name="file"
             autoUpload
             style={{ marginTop: '15px' }}
