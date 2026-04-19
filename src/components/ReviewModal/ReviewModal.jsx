@@ -6,7 +6,7 @@ import SuccessMessage from '../SuccessMessage/SuccessMessage'
 import SpinnerModal from '../SpinnerModal/SpinnerModal'
 import { createReview } from '../../redux/slices/reviewsSlice'
 
-function ReviewModal({ setModal }) {
+function ReviewModal({ setModal, company }) {
     const [result, setResult] = useState(false)
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
@@ -55,6 +55,8 @@ function ReviewModal({ setModal }) {
             phone,
             comment,
             rating: Number(rating),
+            companyId: company?.id,
+            companyName: company?.name
         }
 
         dispatch(createReview(rew))
@@ -75,8 +77,9 @@ function ReviewModal({ setModal }) {
                 <span className={styles.badge}>Baalo.kg</span>
                 <h2>Оставить отзыв</h2>
                 <p className={styles.subtext}>
-                    Поделитесь своим мнением о компании и помогите другим пользователям
-                    сделать правильный выбор.
+                    {company?.name
+                        ? `Поделитесь мнением о компании ${company.name}`
+                        : 'Поделитесь своим мнением о компании и помогите другим пользователям сделать правильный выбор.'}
                 </p>
 
                 {result ? (

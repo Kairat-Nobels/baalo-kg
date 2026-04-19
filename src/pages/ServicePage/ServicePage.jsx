@@ -28,10 +28,10 @@ function ServicePage() {
     }, [reviews, company])
 
     const averageRating = useMemo(() => {
-        if (!companyReviews.length) return company?.rating || 4.5
+        if (!companyReviews.length) return company?.rating
 
         const total = companyReviews.reduce((sum, item) => {
-            return sum + Number(item.rating || 5)
+            return sum + Number(item.rating)
         }, 0)
 
         return (total / companyReviews.length).toFixed(1)
@@ -203,7 +203,7 @@ function ServicePage() {
 
                                             <div>
                                                 <h4>{item.userName || item.name || 'Пользователь'}</h4>
-                                                <span>⭐ {item.rating || 5}</span>
+                                                <span>⭐ {item.rating}</span>
                                             </div>
                                         </div>
 
@@ -216,7 +216,12 @@ function ServicePage() {
                 </div>
             </div>
 
-            {reviewModal && <ReviewModal setModal={setReviewModal} />}
+            {reviewModal && (
+                <ReviewModal
+                    setModal={setReviewModal}
+                    company={company}
+                />
+            )}
             <Footer />
         </>
     )
