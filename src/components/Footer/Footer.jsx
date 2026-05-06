@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import styles from './footer.module.css'
 import { FaInstagram, FaWhatsapp, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 import { useState } from 'react'
-import Modal from '../Modal/Modal'
+import ReviewModal from '../ReviewModal/ReviewModal'
 
 function Footer() {
     const [modal, setModal] = useState(false)
@@ -112,7 +112,7 @@ function Footer() {
                     <p>© 2026 Baalo.kg. Все права защищены.</p>
                 </div>
 
-                {modal && <Modal setModal={setModal} />}
+                {modal && <ReviewModal setModal={setModal} />}
             </div>
         </footer>
     )
